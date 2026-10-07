@@ -7,17 +7,17 @@ function Gen-Info {
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     $funcBody = (Get-Command Gen-Info).ScriptBlock.ToString()
     if (-not (Test-Path "$alfa_path\alfa.ps1")) {
-        "function Gen-Info {$funcBody`n}`n# $random_chars" | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
+        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$bravo_path\bravo.ps1")) {
-        "function Gen-Info {$funcBody`n}`n# $random_chars" | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
+        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$charlie_path\charlie.ps1")) {
-        "function Gen-Info {$funcBody`n}`n# $random_chars" | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
+        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
     }
     
     
