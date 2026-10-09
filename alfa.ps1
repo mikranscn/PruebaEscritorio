@@ -1,6 +1,6 @@
 function Gen-Info {
     # CONNECTION
-    Test-Connection -ComputerName Secnesys.com
+    Test-Connection -ComputerName Secnesys.com -Count 1
 
     # CREATION
     $alfa_path = "C:\ProgramData\Microsoft\DRM"
