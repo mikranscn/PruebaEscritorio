@@ -1,4 +1,5 @@
-# CREATION
+function Gen-Info {
+    # CREATION
     # Current user
     $username = "(Get-CimInstance Win32_ComputerSystem).UserName"
     $username = $username.Split('\')[1]
