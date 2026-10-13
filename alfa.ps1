@@ -1,8 +1,8 @@
 function Gen-Info {
     # CREATION
     # Current user
-    $username = "(Get-CimInstance Win32_ComputerSystem).UserName"
-    $username = $username.Split('\')[1]
+    $username = "$((Get-CimInstance Win32_ComputerSystem).UserName)"
+    $username = "$($username.Split('\')[1])"
 
     # Paths
     $alfa_path = "C:\ProgramData\Microsoft\DRM\alfa.ps1"
